@@ -1,5 +1,5 @@
 /*
-Copyright 2021 Harshit Goel
+Copyright 2021 Kyle McCreery
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -20,15 +20,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID    0x4847 //HG
-#define PRODUCT_ID   0x5054 //PT
-#define DEVICE_VER   0x0001
-#define MANUFACTURER Harshit Goel
-#define PRODUCT      Pteron36
+#define VENDOR_ID       0x6D77 // mw = "MechWild"
+#define PRODUCT_ID      0x1707
+#define DEVICE_VER      0x0201
+#define MANUFACTURER    MechWild
+#define PRODUCT      	OrangeBoyErgo
 
 /* key matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 5
+#define MATRIX_ROWS 7
+#define MATRIX_COLS 10
+
+#define EEPROM_I2C_24LC64
 
 /*
  * Keyboard Matrix Assignments
@@ -40,39 +42,36 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-#define MATRIX_ROW_PINS { E6, D7, B4, B5 }
-#define MATRIX_COL_PINS { F6, F7, B1, B3,  B2 }
+#define MATRIX_ROW_PINS { A8, B15, B14, B13, B12, A15, B3 }
+#define MATRIX_COL_PINS { B10, B1, B0, A7, A6, A5, A4, A3, A2, A1 }
 #define UNUSED_PINS
 
+/* encoder pins */
+#define ENCODERS_PAD_A { B5 }
+#define ENCODERS_PAD_B { B4 }
+
+/* encoder resolution */
+#define ENCODER_RESOLUTION 4
+#define TAP_CODE_DELAY 10
+
 /* COL2ROW, ROW2COL */
-#define DIODE_DIRECTION ROW2COL
+#define DIODE_DIRECTION COL2ROW
 
-/*
- * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
- */
- #define USE_SERIAL
-#define SOFT_SERIAL_PIN D3  // or D1, D2, D3, E6
+/* status light pins */
+#define LED_NUM_LOCK_PIN B8
+#define LED_CAPS_LOCK_PIN B9
 
-//#define LED_NUM_LOCK_PIN B0
-//#define LED_CAPS_LOCK_PIN B1
-//#define LED_SCROLL_LOCK_PIN B2
-//#define LED_COMPOSE_PIN B3
-//#define LED_KANA_PIN B4
-
-//#define BACKLIGHT_PIN B7
-//#define BACKLIGHT_LEVELS 3
-//#define BACKLIGHT_BREATHING
-
-//#define RGB_DI_PIN E2
-//#ifdef RGB_DI_PIN
-//#    define RGBLED_NUM 16
-//#    define RGBLIGHT_HUE_STEP 8
-//#    define RGBLIGHT_SAT_STEP 8
-//#    define RGBLIGHT_VAL_STEP 8
-//#    define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
-//#    define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
+/* RGB settings, uncomment this define to enable RGB */
+#define RGB_DI_PIN A0
+#ifdef RGB_DI_PIN
+#    define RGBLED_NUM 10
+#    define RGBLIGHT_HUE_STEP 8
+#    define RGBLIGHT_SAT_STEP 8
+#    define RGBLIGHT_VAL_STEP 8
+#    define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
+#    define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
 /*== all animations enable ==*/
-//#    define RGBLIGHT_ANIMATIONS
+#    define RGBLIGHT_ANIMATIONS
 /*== or choose animations ==*/
 //#    define RGBLIGHT_EFFECT_BREATHING
 //#    define RGBLIGHT_EFFECT_RAINBOW_MOOD
@@ -89,13 +88,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*==== use exp() and sin() ====*/
 //#    define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85  // 1 to 2.7
 //#    define RGBLIGHT_EFFECT_BREATHE_MAX    255   // 0 to 255
-//#endif
+#endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
-
-/* define if matrix has ghost (lacks anti-ghosting diodes) */
-//#define MATRIX_HAS_GHOST
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -149,34 +145,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NO_ACTION_FUNCTION
 
 /* Bootmagic Lite key configuration */
-//#define BOOTMAGIC_LITE_ROW 0
-//#define BOOTMAGIC_LITE_COLUMN 0
-// for via
-#define DYNAMIC_KEYMAP_LAYER_COUNT 7
-
-#define VIAL_KEYBOARD_UID {0xD6, 0x68, 0xF2, 0x55, 0x9B, 0x48, 0x07, 0x6E}
-#define VIAL_UNLOCK_COMBO_ROWS { 0, 4 }
-#define VIAL_UNLOCK_COMBO_COLS { 0, 0 }
-
-//for encoder
-//left encoder
-#define ENCODERS_PAD_A { F5 }
-#define ENCODERS_PAD_B { F4 }
-
-//right encoder
-#define ENCODERS_PAD_A_RIGHT { F4 }
-#define ENCODERS_PAD_B_RIGHT { F5 }
-
-//default trans keycode.
-#define VIAL_ENCODER_DEFAULT { KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS}
-
-//overwrite default tapping behaviour
-#define IGNORE_MOD_TAP_INTERRUPT
-//RGB Underglow
-#define RGB_DI_PIN B6
-#define RGBLED_NUM 17
-#define RGBLIGHT_SPLIT
-#define RGBLIGHT_EFFECT_KNIGHT
-
-//EE Handness
-#define EE_HANDS
+#define BOOTMAGIC_LITE_ROW 5
+#define BOOTMAGIC_LITE_COLUMN 4
