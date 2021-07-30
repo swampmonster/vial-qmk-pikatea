@@ -19,8 +19,6 @@
 enum layer_names {
     _Media,
     _BL,
-    _Extra,
-    _Extra2
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -28,23 +26,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_MUTE, KC_1, KC_2, KC_3, KC_4
     ),
     [_BL] = LAYOUT(
-        BL_BRTG, _______, _______, _______, BL_TOGG
-    ),
-    [_Extra] = LAYOUT(
-        _______, _______, _______, _______, _______
-    ),
-    [_Extra2] = LAYOUT(
         _______, _______, _______, _______, _______
     ),
 };
 
-// #ifdef ENCODER_ENABLE
 bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (!clockwise) {
-        tap_code(KC_VOLD);
-    } else {
-        tap_code(KC_VOLU);
+    if (index == 0) { /* First encoder */
+        if (clockwise) {
+            tap_code(KC_AUDIO_VOL_UP);
+        } else {
+            tap_code(KC_AUDIO_VOL_DOWN);
+        }
     }
     return true;
 }
-// #endif
