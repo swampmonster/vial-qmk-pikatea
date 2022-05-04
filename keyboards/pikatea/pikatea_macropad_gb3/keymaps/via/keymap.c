@@ -15,6 +15,9 @@
  */
 #include QMK_KEYBOARD_H
 
+extern MidiDevice midi_device;
+
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_all(
         KC_F13,   KC_F14, KC_F15,   KC_F16,   KC_MEDIA_PREV_TRACK,    KC_MEDIA_PLAY_PAUSE,    KC_MEDIA_NEXT_TRACK,    KC_MUTE
@@ -32,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 bool encoder_update_user(uint8_t index, bool clockwise) {
     // Volume control
     if (!clockwise) {
-        tap_code(KC_VOLU);
+        midi_send_cc(&midi_device, 1, 7, 100);
     } else {
         tap_code(KC_VOLD);
     }

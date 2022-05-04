@@ -163,3 +163,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BOOTMAGIC_LITE_COLUMN 0
 
 #define NO_USB_STARTUP_CHECK
+
+#define MIDI_BASIC
