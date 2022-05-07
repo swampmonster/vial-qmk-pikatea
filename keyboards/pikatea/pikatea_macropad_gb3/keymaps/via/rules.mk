@@ -1,4 +1,5 @@
 ENCODER_ENABLE = yes
+SRC += analog.c
 # VIA_ENABLE = yes
 # VIAL_ENABLE = yes
 # VIAL_INSECURE = yes
